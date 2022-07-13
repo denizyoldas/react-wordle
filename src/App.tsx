@@ -1,45 +1,35 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import Board from "./components/board";
+import WORDS from "./words.json";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [word, setWord] = useState<string>("");
+  const [guesses, setGuesses] = useState<any[]>(Array(6).fill(null));
+  useEffect(() => {
+    const randWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    setWord(randWord);
+    console.log(randWord);
+  }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="grid p-12 flex justify-center w-creen h-screen bg-slate-700 text-white">
+      {word}
+      {guesses.map((guess) => (
+        <Line guess={guess} />
+      ))}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
+
+function Line(props: { guess: any[] }) {
+  return (
+    <div className="bg-white">
+      {props.guess.map((item) => (
+        <div>Bos</div>
+      ))}
+    </div>
+  );
+}
